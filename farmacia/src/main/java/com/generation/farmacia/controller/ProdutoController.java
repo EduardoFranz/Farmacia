@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -54,6 +55,7 @@ public class ProdutoController {
 	 * Método ResponseEntity<Produto> postProduto (@RequestBody Produto produto) será do tipo 
 	 * ResponseEntity porque ele responderá a requisição (Request), com uma HTTP Response (Resposta http), 
 	 * neste caso Response Status 201 => CREATED
+	 * 
 	 */
 	
 	
@@ -92,7 +94,30 @@ public class ProdutoController {
 			.orElse(ResponseEntity.notFound().build());
 	}
 	
+    /*Deletar uma produto
+	 *   
+	 * @DeleteMapping("/{id}"):indica que o método abaixo responderá todas
+	 * as requisições do tipo DELETE que forem enviadas no endpoint /produto/id
+	 * 
+	 * @PathVariable Long id: insere a variável de path (caminho ou url do endpoint), 
+	 * passada no endereço da requisição, e insere no parâmetro id do método deleteProduto
+	 * 
+	 * <?>: O ?, no contexto de genéricos, basicamente serve como um coringa, ou seja, ele representa "qualquer tipo".
+	 * logo você não está definindo um tipo específico 
+	 * para retorno. Como Delete não retorna nada, o tipo ResponseEntity<Void> é o tipo genérico que será retornado.
+	 * 
+	 *  */
 	
+	@DeleteMapping("/{id}")
+	public ResponseEntity<?> deleteProduto(@PathVariable Long id) {
+		
+		return produtoRepository.findById(id)
+				.map(resposta -> {
+					produtoRepository.deleteById(id);
+					return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+				})
+				.orElse(ResponseEntity.notFound().build());
+	}
 	
 	
 }
