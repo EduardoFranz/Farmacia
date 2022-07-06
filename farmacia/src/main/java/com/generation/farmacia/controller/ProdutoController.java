@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -55,10 +56,43 @@ public class ProdutoController {
 	 * neste caso Response Status 201 => CREATED
 	 */
 	
+	
+	//Metodo antigo de fazer post, ocorre que com esse metodo voce consegue fazer a criação de um produto mesmo que ele já exista
+	//att esse metodo com if
 	@PostMapping
 	public ResponseEntity<Produto> postProduto (@Valid @RequestBody Produto produto){
 		return ResponseEntity.status(HttpStatus.CREATED).body(produtoRepository.save(produto));
 	}
+	
+	
+	/* Editar uma postagem 
+	 * 
+	 * @PutMapping:indica que o método abaixo responderá todas as requisições do tipo PUT que forem enviadas no endpoint /postagens
+	 * 
+	 * @Valid: Valida o Objeto Produto enviado no corpo da requisição (Request Body), conforme as regras
+	 * definidas na Model Produto. Caso algum atributo não seja validado, o método retornará um status
+	 * 400 => Bad Request.
+	 * 
+	 * @RequestBody Produto produto: Anntotation (anotação) que insere o objeto do tipo Produto enviado
+	 * no corpo da requisição (Request Body) e insere no parâmetro produto do método postProduto
+	 * 
+	 * .map(resposta -> ResponseEntity.ok().body(produtoRepository.save(produto))): Se a produto existir, a função 
+	 *  map (tipo Optional), executa o método save(produto) e retorna o status OK = 200 se o objeto Produto foi 
+	 *  atualizado na tabela produto no Banco de dados.
+	 * 
+	 * .orElse(ResponseEntity.notFound().build());: Se o produto não for encontrada pelo método findById(poroduto.getId()), 
+	 * retorna o status Not Found = 404
+	 */
+	
+	@PutMapping
+	public ResponseEntity<Produto> putProduto (@Valid @RequestBody Produto produto){
+		
+		return produtoRepository.findById(produto.getId())
+			.map(resposta -> ResponseEntity.ok().body(produtoRepository.save(produto)))
+			.orElse(ResponseEntity.notFound().build());
+	}
+	
+	
 	
 	
 }
