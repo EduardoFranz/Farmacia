@@ -23,22 +23,9 @@ public class Categoria {
 		private Long id;
 		
 		@NotBlank(message = "A categoria é obrigatória e não pode conter espaços em branco")
-		private String medicamentos;
+		private String descricao;
 		
-		@NotBlank(message = "A categoria é obrigatória e não pode conter espaços em branco")
-		private String genericos;
 		
-		@NotBlank(message = "A categoria é obrigatória e não pode conter espaços em branco")
-		private String dermocosmeticos;
-		
-		@NotBlank(message = "A categoria é obrigatória e não pode conter espaços em branco")
-		private String servicos;
-		
-		@NotBlank(message = "A categoria é obrigatória e não pode conter espaços em branco")
-		private String infantil;
-		
-		@NotBlank(message = "A categoria é obrigatória e não pode conter espaços em branco")
-		private String promocoes;
 		
 		
 		/*  @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL): indica 
@@ -75,41 +62,11 @@ public class Categoria {
 		public void setId(Long id) {
 			this.id = id;
 		}
-		public String getMedicamentos() {
-			return medicamentos;
+		public String getDescricao() {
+			return descricao;
 		}
-		public void setMedicamentos(String medicamentos) {
-			this.medicamentos = medicamentos;
-		}
-		public String getGenericos() {
-			return genericos;
-		}
-		public void setGenericos(String genericos) {
-			this.genericos = genericos;
-		}
-		public String getDermocosmeticos() {
-			return dermocosmeticos;
-		}
-		public void setDermocosmeticos(String dermocosmeticos) {
-			this.dermocosmeticos = dermocosmeticos;
-		}
-		public String getServicos() {
-			return servicos;
-		}
-		public void setServicos(String servicos) {
-			this.servicos = servicos;
-		}
-		public String getInfantil() {
-			return infantil;
-		}
-		public void setInfantil(String infantil) {
-			this.infantil = infantil;
-		}
-		public String getPromocoes() {
-			return promocoes;
-		}
-		public void setPromocoes(String promocoes) {
-			this.promocoes = promocoes;
+		public void setDescricao(String descricao) {
+			this.descricao = descricao;
 		}
 		
 		
