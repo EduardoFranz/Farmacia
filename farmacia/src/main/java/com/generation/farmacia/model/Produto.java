@@ -8,7 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.Min;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -44,14 +44,13 @@ public class Produto {
 		private LocalDateTime data;
 		
 		@NotNull
-		@Size (min = 10 , max = 500)
+		@Size (min = 5 , max = 500)
 		private String descricao;
 		
-		@Min(1)
+		
 		private int quantidade;
 		
 		
-
 		//Getters e Setters
 		public long getId() {
 			return id;
